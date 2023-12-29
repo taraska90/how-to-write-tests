@@ -1,7 +1,13 @@
 # make my first hash function
+import sys
+
+def hash_function(key):
+    return sum(
+        index * ord(character)
+        for index, character in enumerate(repr(key), start=1)
+    )
 
 
-def hash_function(text):
-    if type(text) is not str:
-        return("Error. Input should be string")
-    return sum(ord(character) for character in text)
+if __name__ == "__main__":
+    arg = sys.argv[1]
+    print(hash_function(arg))
