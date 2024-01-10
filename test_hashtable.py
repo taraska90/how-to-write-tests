@@ -35,14 +35,15 @@ def test_should_insert_key_value_pairs():
     hash_table[False] = True
 
     #Then
-    assert "hello" in hash_table.pairs
-    assert 37 in hash_table.pairs
-    assert True in hash_table.pairs
+    assert ("hola", "hello") in hash_table.pairs
+    assert (98.6, 37) in hash_table.pairs
+    assert (False, True) in hash_table.pairs
     assert len(hash_table) == 100
 
 def test_should_not_contain_none_value_when_created():
-    assert None not in HashTable(capacity=100).pairs
-
+    hash_table = HashTable(capacity=100)
+    values = [pair.value for pair in hash_table.pairs if pair]
+    assert None not in values
 
 def test_should_insert_none_values():
     #given
@@ -84,10 +85,10 @@ def test_should_get_value_with_default(hash_table):
 
 def test_should_del_key_value_pair(hash_table):
     assert "hola" in hash_table
-    assert "hello" in hash_table.pairs
+    assert ("hola", "hello") in hash_table.pairs
     del hash_table['hola']
     assert 'hola' not in hash_table
-    assert "hello" not in hash_table.pairs
+    assert ("hola", "hello") not in hash_table.pairs
     assert len(hash_table) == 100
 
 
@@ -111,3 +112,9 @@ def test_should_return_pairs(hash_table):
     assert ("hola", "hello") in hash_table.pairs
     assert (98.6, 37) in hash_table.pairs
     assert (False, True) in hash_table.pairs
+
+def test_should_return_copy_of_pairs(hash_table):
+    assert hash_table.pairs is not hash_table.pairs
+
+def test_should_not_include_blank_pairs(hash_table):
+    assert None not in hash_table.pairs
