@@ -17,13 +17,7 @@ def test_should_report_capacity():
     assert len(HashTable(capacity=100)) == 100
 
 def test_should_create_empty_value_slots():
-    # Given
-    expected_values = [None, None, None]
-    hashtable = HashTable(capacity=3)
-    # When
-    actual_values = hashtable.pairs
-    # Then
-    assert expected_values == actual_values
+    assert HashTable(capacity=3)._pairs == [None, None, None]
 
 def test_should_insert_key_value_pairs():
     # Given
@@ -51,7 +45,7 @@ def test_should_insert_none_values():
     #when
     hash_table['key'] = None
     #then
-    assert None in hash_table.pairs
+    assert ("key", None) in hash_table.pairs
 
 def test_should_find_value_by_key(hash_table):
     assert hash_table["hola"] == "hello"

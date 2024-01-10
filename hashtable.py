@@ -1,5 +1,3 @@
-
-
 from typing import NamedTuple, Any
 
 class Pair(NamedTuple):
@@ -47,4 +45,5 @@ class HashTable():
 
     @property
     def pairs(self):
-        return self._pairs.copy()
+        return [pair for pair in self._pairs if pair]
+
