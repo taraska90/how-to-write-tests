@@ -20,8 +20,22 @@ class HashTable:
 
 
     def __contains__(self, key):
-        index = hash(key) % len(self)
-        if self.values[index]:
-            return key
-        else:
-            raise KeyError(key)
+        try:
+            self[key]
+        except KeyError:
+            return False
+        return True
+
+    def get(self, key, default=None):
+        try:
+            return self[key]
+        except KeyError:
+            return default
+    def index(self, item):
+        """
+
+        :param item: could be key or value
+        :return: index hash for item
+        """
+        index = hash(item) % len(self)
+        return index
