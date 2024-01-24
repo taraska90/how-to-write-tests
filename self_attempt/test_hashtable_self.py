@@ -30,7 +30,9 @@ def test_should_insert_key_value_pairs():
     assert len(hash_table) == 100
 
 def test_should_not_contain_none_value_when_created():
-    assert None not in HashTable(capacity=100).pairs
+    hash_table = HashTable(capacity=100)
+    values = [pair.value for pair in hash_table.pairs if pair]
+    assert None not in values
 
 def test_should_insert_none_value():
     hash_table = HashTable(capacity=100)
