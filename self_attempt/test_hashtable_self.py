@@ -1,6 +1,6 @@
 import pytest
-
 from hashtable_self import HashTable
+from pytest_unordered import unordered
 
 def test_should_create_hashtable():
     assert HashTable(capacity=100) is not None
@@ -112,3 +112,22 @@ def test_should_return_duplicate_values():
     hash_table["Bob"] = 42
     hash_table["Joe"] = 42
     assert [24, 42, 42] == sorted(hash_table.values)
+
+def test_should_get_values(hash_table):
+    assert unordered(hash_table.values) == ["hello", 37, True]
+
+def test_should_get_values_of_empty_hash_table():
+    assert HashTable(capacity=100).values == []
+
+def test_should_return_copy_of_values(hash_table):
+    assert hash_table.values is not hash_table.values
+
+
+def test_should_get_keys(hash_table):
+    assert hash_table.keys == {"hola", 98.6, False}
+
+def test_should_get_keys_of_empty_hash_table():
+    assert HashTable(capacity=100).keys == set()
+
+def test_should_return_copy_of_keys(hash_table):
+    assert hash_table.keys is not hash_table.keys
