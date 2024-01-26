@@ -8,7 +8,7 @@ class HashTable:
         self._pairs = [None] * capacity
 
     def __len__(self):
-        return len(self._pairs)
+        return len(self.pairs)
 
     def __setitem__(self, key, value):
         self._pairs[self._index(key)] = Pair(key, value)
@@ -45,11 +45,11 @@ class HashTable:
         :param item: could be key or value
         :return: index hash for item
         """
-        return hash(item) % len(self)
+        return hash(item) % len(self._pairs)
 
     @property
     def pairs(self):
-        return [pair for pair in self._pairs if pair]
+        return {pair for pair in self._pairs if pair}
 
     @property
     def values(self):

@@ -6,7 +6,7 @@ def test_should_create_hashtable():
     assert HashTable(capacity=100) is not None
 
 def test_should_report_capacity():
-    assert len(HashTable(capacity=100)) == 100
+    assert len(HashTable(capacity=100)) == 0
 
 def test_should_create_empty_values():
     assert HashTable(capacity=3)._pairs == [None, None, None]
@@ -18,11 +18,11 @@ def test_should_insert_key_value_pairs():
     hash_table[98.6] = 37
     hash_table[False] = True
 
-    assert ("hola", "hello")in hash_table.pairs
+    assert ("hola", "hello") in hash_table.pairs
     assert (98.6, 37) in hash_table.pairs
     assert (False, True) in hash_table.pairs
 
-    assert len(hash_table) == 100
+    assert len(hash_table) == 3
 
 def test_should_not_contain_none_value_when_created():
     assert None not in HashTable(capacity=100).values
@@ -72,13 +72,13 @@ def test_should_get_value_with_default(hash_table):
 def test_should_delete_key_value_pair(hash_table):
     assert "hola" in hash_table
     assert ("hola", "hello") in hash_table.pairs
-    assert len(hash_table) == 100
+    assert len(hash_table) == 3
 
     del hash_table["hola"]
 
     assert "hola" not in hash_table
     assert ("hola", "hello") not in hash_table.pairs
-    assert len(hash_table) == 100
+    assert len(hash_table) == 2
 
 def test_should_raise_key_error_when_deleting(hash_table):
     with pytest.raises(KeyError) as exception_info:
@@ -93,7 +93,7 @@ def test_should_update_value(hash_table):
     assert hash_table["hola"] == "hallo"
     assert hash_table[98.6] == 37
     assert hash_table[False] is True
-    assert len(hash_table) == 100
+    assert len(hash_table) == 3
 
 def test_should_return_pairs(hash_table):
     assert ("hola", "hello") in hash_table.pairs
@@ -131,3 +131,20 @@ def test_should_get_keys_of_empty_hash_table():
 
 def test_should_return_copy_of_keys(hash_table):
     assert hash_table.keys is not hash_table.keys
+
+def test_should_return_pairs(hash_table):
+    assert hash_table.pairs == {
+        ("hola", "hello"),
+        (98.6, 37),
+        (False, True)
+    }
+
+def test_should_get_pairs_of_empty_hash_table():
+    assert HashTable(capacity=100).pairs == set()
+
+
+def test_should_convert_to_dict(hash_table):
+    dictionary = dict(hash_table.pairs)
+    assert set(dictionary.keys()) == hash_table.keys
+    assert set(dictionary.items()) == hash_table.pairs
+    assert list(dictionary.values()) == unordered(hash_table.values)
