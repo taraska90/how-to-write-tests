@@ -5,6 +5,8 @@ class Pair(NamedTuple):
     value: Any
 class HashTable:
     def __init__(self, capacity):
+        if capacity < 1:
+            raise ValueError("Capacity must be a positive number")
         self._pairs = [None] * capacity
 
     def __len__(self):
@@ -39,13 +41,13 @@ class HashTable:
         else:
             raise KeyError(key)
 
-    def _index(self, item):
+    def _index(self, key):
         """
 
         :param item: could be key or value
         :return: index hash for item
         """
-        return hash(item) % len(self._pairs)
+        return hash(key) % self.capacity
 
     @property
     def pairs(self):
@@ -58,3 +60,7 @@ class HashTable:
     @property
     def keys(self):
         return {pair.key for pair in self.pairs}
+
+    @property
+    def capacity(self):
+        return len(self._pairs)

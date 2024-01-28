@@ -148,3 +148,20 @@ def test_should_convert_to_dict(hash_table):
     assert set(dictionary.keys()) == hash_table.keys
     assert set(dictionary.items()) == hash_table.pairs
     assert list(dictionary.values()) == unordered(hash_table.values)
+
+def test_should_not_create_table_with_zero_capacity():
+    with pytest.raises(ValueError):
+        HashTable(capacity=0)
+
+def test_should_not_create_table_with_negative_capacity():
+    with pytest.raises(ValueError):
+        HashTable(capacity=-100)
+
+def test_should_report_length(hash_table):
+    assert len(hash_table) == 3
+
+def test_should_report_capacity_of_empty_hash_table():
+    assert HashTable(capacity=100).capacity == 100
+
+def test_should_report_capacity(hash_table):
+    assert hash_table.capacity == 100
