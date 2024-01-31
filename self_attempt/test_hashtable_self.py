@@ -182,3 +182,13 @@ def test_shoul_iterate_over_pairs(hash_table):
 def test_should_iterate_over_instance(hash_table):
     for key in hash_table:
         assert key in ("hola", 98.6, False)
+
+def test_should_use_dict_literal_for_str(hash_table):
+    assert str(hash_table) in {
+        "{'hola': 'hello', 98.6: 37, False: True}",
+        "{'hola': 'hello', False: True, 98.6: 37}",
+        "{98.6: 37, 'hola': 'hello', False: True}",
+        "{98.6: 37, False: True, 'hola': 'hello'}",
+        "{False: True, 'hola': 'hello', 98.6: 37}",
+        "{False: True, 98.6: 37, 'hola': 'hello'}",
+    }

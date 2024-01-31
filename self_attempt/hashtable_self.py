@@ -29,6 +29,9 @@ class HashTable:
             return False
         return True
 
+    def __iter__(self):
+        yield from self.keys
+
     def get(self, key, default=None):
         try:
             return self[key]
@@ -40,6 +43,9 @@ class HashTable:
             self._slots[self._index(key)] = None
         else:
             raise KeyError(key)
+
+    def __str__(self):
+        return "{" + self.keys + ":" + self.values + "}"
 
     def _index(self, key):
         """
