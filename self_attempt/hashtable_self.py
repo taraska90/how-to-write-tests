@@ -45,8 +45,10 @@ class HashTable:
             raise KeyError(key)
 
     def __str__(self):
-        return "{" + self.keys + ":" + self.values + "}"
-
+        pairs = []
+        for key, value in self.pairs:
+            pairs.append(f"{key!r}: {value!r}")
+        return "{" + ", ".join(pairs) + "}"
     def _index(self, key):
         """
 
