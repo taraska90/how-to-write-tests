@@ -192,3 +192,5 @@ def test_should_use_dict_literal_for_str(hash_table):
         "{False: True, 'hola': 'hello', 98.6: 37}",
         "{False: True, 98.6: 37, 'hola': 'hello'}",
     }
+
+    #
